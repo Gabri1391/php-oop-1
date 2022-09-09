@@ -1,5 +1,9 @@
 <?php
 
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
 class Movie
 {
     public $id;
@@ -20,15 +24,17 @@ class Movie
 
     public function setYear($year)
     {
-        if(!is_numeric($year) || $year < 1900) return;
+        if(!is_numeric($year) || $year < 1900) return 'year not valid';
         $this->year = $year;
     }
 
-    public function getSubtitle($subtitle)
+    public function getSubtitle()
     {
-        if(!$subtitle){
+        if($this->subtitle == ''){
             return ' - '; 
         }
+        
+        return $this->subtitle;
     }
 }
 
@@ -36,14 +42,9 @@ $film1 = new Movie('Ace Ventura', 'Missione Africa', 'Comic', 'Jim Carrey', 1994
 $film2 = new Movie('Titanic', '', 'Dramatic', 'Leonardo Di Caprio', 1997);
 $film3 = new Movie('SpaceJam', 'New Legends', 'Cartoon', 'Lebron James', 2021);
 
-$film1 = setYear();
-$film1 = getSubtitle();
-
-$film2 = setYear();
-$film2 = getSubtitle();
-
-$film3 = setYear();
-$film3 = getSubtitle();
+$film1-> setYear(1994);
+$film1-> setYear(1967);
+$film1-> setYear(2021);
 
 ?>
 
@@ -58,22 +59,22 @@ $film3 = getSubtitle();
 <body>
     <h2>Movies</h2>
     <div>
-        <h3><strong><?= $film1->title ?></strong></h3>
-        <p><?= $film1->subtitle ?></p>
-        <p><strong>Genre</strong> : <?= $film1->genre ?></p>
-        <p><strong>Year</strong> :<?= $film1->year ?></p>
+        <h3><strong><?php echo $film1->title; ?></strong></h3>
+        <p><?php echo $film1->getSubtitle(); ?></p>
+        <p><strong>Genre</strong> : <?php echo $film1->genre; ?></p>
+        <p><strong>Year</strong> : <?php echo $film1->year; ?></p>
     </div>
     <div>
-        <h3><strong><?= $film2->title ?></strong></h3>
-        <p><?= $film2->subtitle ?></p>
-        <p><strong>Genre</strong> : <?= $film2->genre ?></p>
-        <p><strong>Year</strong> : <?= $film2->year ?></p>
+        <h3><strong><?php echo $film2->title; ?></strong></h3>
+        <p><?php echo $film2->getSubtitle(); ?></p>
+        <p><strong>Genre</strong> : <?php echo $film2->genre; ?></p>
+        <p><strong>Year</strong> : <?php echo $film2->year; ?></p>
     </div>
     <div>
         <h3><strong><?= $film3->title ?></strong></h3>
-        <p><?= $film3->subtitle ?></p>
-        <p><strong>Genre</strong> : <?= $film3->genre ?></p>
-        <p><strong>Year</strong> : <?= $film3->year ?></p>
+        <p><?php echo $film3->getSubtitle(); ?></p>
+        <p><strong>Genre</strong> : <?php echo $film3->genre; ?></p>
+        <p><strong>Year</strong> : <?php echo $film3->year; ?></p>
     </div>
 </body>
 </html>
